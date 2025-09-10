@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NavbarWrapper from "./components/navbarWrapper";
 
 export const metadata: Metadata = {
   title: "My Yojana - Find Your Schemes",
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body
       >
+        <NavbarWrapper />
         {children}
       </body>
     </html>

@@ -8,23 +8,20 @@ import {
   categories,
   features,
 } from "./constants";
+import IconComponent from "./components/iconComponent";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
       <div className="relative min-h-[600px]">
-=        <Image
+        <Image
           src="/family.png"
           alt="Background"
           fill
           priority
-          className="object-cover object-center brightness-100"
+          className="object-cover object-center brightness-100 pt-13"
         />
-
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f2027]/90 via-[#203a43]/90 to-[#2c5364]/90">
-          <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:60px_60px]" />
-        </div>
 
         <div className="relative z-10 container mx-auto px-6 py-32">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
@@ -69,10 +66,10 @@ export default function Home() {
             <Link
               key={category.id}
               href={`/schemes/${category.id}`}
-              className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] transition-all duration-300 border border-gray-100 hover:border-transparent"
+              className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-br from-[#2d82a6] via-[#48b2d5] to-[#64c4ed] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
             >
               <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                {category.icon}
+                <IconComponent name={category.icon} className="w-12 h-12" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-gray-800 group-hover:text-white">
                 {category.title}
@@ -86,7 +83,7 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div className="bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] py-24 text-white">
+      <div className="bg-gradient-to-br from-[#2d82a6] via-[#3797bd] to-[#48b2d5] py-24 text-white">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-16">
             Why Choose MyYojana?
@@ -117,7 +114,7 @@ export default function Home() {
                 key={stat.label}
                 className="text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#0f2027] to-[#2c5364] mb-4">
+                <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#1a5f7a] to-[#48b2d5] mb-4">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 text-lg">{stat.label}</div>

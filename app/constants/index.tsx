@@ -1,3 +1,24 @@
+import { 
+  AcademicCapIcon,
+  HomeIcon,
+  UserGroupIcon,
+  BriefcaseIcon,
+  HeartIcon,
+  UsersIcon
+} from '@heroicons/react/24/outline';
+
+export type IconName = 'plant' | 'academic-cap' | 'users' | 'home' | 'heart' | 'briefcase' | 'users-group';
+
+export const iconMap: Record<IconName, React.ComponentType<any>> = {
+  'plant': AcademicCapIcon,  
+  'academic-cap': AcademicCapIcon,
+  'users': UsersIcon,
+  'home': HomeIcon,
+  'heart': HeartIcon,
+  'briefcase': BriefcaseIcon,
+  'users-group': UserGroupIcon,
+};
+
 export const languages = [
   { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
@@ -50,49 +71,49 @@ export const categories = [
     id: 'agriculture',
     title: 'Agriculture',
     description: 'Schemes for farmers and agricultural development',
-    icon: '🌾',
+    icon: 'plant' as IconName, 
   },
   {
     id: 'education',
     title: 'Education',
     description: 'Scholarships and educational support',
-    icon: '📚',
+    icon: 'academic-cap' as IconName,  
   },
   {
     id: 'women',
     title: 'Women Empowerment',
     description: 'Programs for women welfare and development',
-    icon: '👩',
+    icon: 'users' as IconName,  
   },
   {
     id: 'rural',
     title: 'Rural Development',
     description: 'Schemes for rural areas and communities',
-    icon: '🏘️',
+    icon: 'home' as IconName,  
   },
   {
     id: 'health',
     title: 'Healthcare',
     description: 'Medical assistance and health insurance schemes',
-    icon: '🏥',
+    icon: 'heart' as IconName,  
   },
   {
     id: 'business',
     title: 'Business & MSME',
     description: 'Support for entrepreneurs and small businesses',
-    icon: '💼',
+    icon: 'briefcase' as IconName,  
   },
   {
     id: 'skill',
     title: 'Skill Development',
     description: 'Training and career enhancement programs',
-    icon: '🎯',
+    icon: 'academic-cap' as IconName,  
   },
   {
     id: 'social',
     title: 'Social Welfare',
     description: 'Support for underprivileged communities',
-    icon: '🤝',
+    icon: 'users-group' as IconName,  
   },
 ];
 
