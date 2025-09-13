@@ -9,10 +9,12 @@ import {
   features,
 } from "./constants";
 import IconComponent from "./components/iconComponent";
+import TagsDropdown from "./components/tagsDropdown";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      
       {/* Hero Section */}
       <div className="relative min-h-[600px]">
         <Image
@@ -63,9 +65,8 @@ export default function Home() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category) => (
-            <Link
+            <div
               key={category.id}
-              href={`/schemes/${category.id}`}
               className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-br from-[#2d82a6] via-[#48b2d5] to-[#64c4ed] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
             >
               <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
@@ -77,7 +78,7 @@ export default function Home() {
               <p className="text-gray-600 leading-relaxed group-hover:text-gray-300">
                 {category.description}
               </p>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
