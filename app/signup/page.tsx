@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+  const router = useRouter();
+  const user = sessionStorage.getItem("userDisplayInfo");
+  if (user) router.push("/");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,14 +18,18 @@ export default function SignUpPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(""); // Clear error when user types
+    setError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simple validation
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
       setError("Please fill in all fields.");
       return;
     }
@@ -38,17 +47,20 @@ export default function SignUpPage() {
 
     const data = await res.json();
     if (res.ok) {
-      alert(data.message);
+      toast.success(data.message);
+      router.push("/login");
     } else {
-      setError(data.message);
+      toast.error(data.message);
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="w-full max-w-md bg-white shadow-xl rounded-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-[#2c5364] mb-6">Create Your Account</h1>
-        
+        <h1 className="text-3xl font-bold text-center text-[#2c5364] mb-6">
+          Create Your Account
+        </h1>
+
         {error && (
           <p className="mb-4 text-sm text-red-600 text-center">{error}</p>
         )}

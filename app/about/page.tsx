@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 
 export default function AboutPage() {
+  const user=sessionStorage.getItem("userDisplayInfo");
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
       {/* Hero Section */}
@@ -126,7 +129,7 @@ export default function AboutPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-gradient-to-r from-[#2c5364] to-[#203a43] py-12 text-center text-white">
+      {!user && (<section className="bg-gradient-to-r from-[#2c5364] to-[#203a43] py-12 text-center text-white">
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">
           Ready to Explore Government Schemes?
         </h2>
@@ -137,7 +140,7 @@ export default function AboutPage() {
         >
           Get Started
         </a>
-      </section>
+      </section>)}
     </div>
   );
 }

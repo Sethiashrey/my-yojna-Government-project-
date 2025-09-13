@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -9,9 +10,9 @@ import {
   features,
 } from "./constants";
 import IconComponent from "./components/iconComponent";
-import TagsDropdown from "./components/tagsDropdown";
 
 export default function Home() {
+  const user=sessionStorage.getItem("userDisplayInfo");
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       
@@ -22,7 +23,7 @@ export default function Home() {
           alt="Background"
           fill
           priority
-          className="object-cover object-center brightness-100 pt-13"
+          className="object-cover object-center brightness-100 "
         />
 
         <div className="relative z-10 container mx-auto px-6 py-32">
@@ -37,18 +38,18 @@ export default function Home() {
                 better opportunities today.
               </p>
               <div className="flex gap-6">
-                <Link
+                              <Link
                   href="/schemes"
                   className="bg-white/90 backdrop-blur-sm text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-white transition-colors shadow-lg inline-flex items-center gap-2"
                 >
                   Explore Schemes
                 </Link>
-                <Link
+                {user && <Link
                   href="/register"
                   className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-colors shadow-lg"
                 >
                   Create Profile
-                </Link>
+                </Link>}
               </div>
             </div>
           </div>
@@ -65,10 +66,10 @@ export default function Home() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category) => (
-            <div
-              key={category.id}
-              className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-br from-[#2d82a6] via-[#48b2d5] to-[#64c4ed] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
-            >
+                          <div
+                key={category.id}
+                className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-r from-[#2c5364] via-[#203a43] to-[#0f2027] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
+              >
               <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 <IconComponent name={category.icon} className="w-12 h-12" />
               </div>
@@ -84,7 +85,7 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <div className="bg-gradient-to-br from-[#2d82a6] via-[#3797bd] to-[#48b2d5] py-24 text-white">
+      <div className="bg-gradient-to-r from-[#2c5364] via-[#203a43] to-[#0f2027] py-24 text-white">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl font-bold text-center mb-16">
             Why Choose MyYojana?
@@ -115,7 +116,7 @@ export default function Home() {
                 key={stat.label}
                 className="text-center p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#1a5f7a] to-[#48b2d5] mb-4">
+                <div className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#2c5364] to-[#203a43] mb-4">
                   {stat.number}
                 </div>
                 <div className="text-gray-600 text-lg">{stat.label}</div>

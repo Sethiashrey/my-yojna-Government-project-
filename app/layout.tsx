@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavbarWrapper from "./components/navbarWrapper";
+import { ToastContainer } from "react-toastify";
+import Navbar from "./components/navbar";
 
 export const metadata: Metadata = {
   title: "My Yojana - Find Your Schemes",
@@ -14,9 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-      >
-        <NavbarWrapper />
+      <body>
+        <ToastContainer />
+        <Navbar />
         {children}
       </body>
     </html>

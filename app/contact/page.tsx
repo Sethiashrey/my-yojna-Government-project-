@@ -19,7 +19,6 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  // Simple validation
   if (!formData.name || !formData.email || !formData.message) {
     setStatus("Please fill in all fields.");
     return;
@@ -51,7 +50,6 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-[#2c5364] via-[#203a43] to-[#0f2027] text-white py-20">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">Get in Touch</h1>

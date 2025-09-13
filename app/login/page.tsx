@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const user = sessionStorage.getItem("userDisplayInfo");
+  if (user) router.push("/");
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,11 +33,20 @@ export default function LoginPage() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
+      credentials: "include",
     });
 
     const data = await res.json();
     if (res.ok) {
-      alert(data.message);
+      sessionStorage.setItem(
+        "userDisplayInfo",
+        JSON.stringify({
+          email: formData.email,
+          name: data.user?.name || "User",
+        })
+      );
+      toast.success(data.message);
+      router.push("/");
     } else {
       setError(data.message);
     }
@@ -39,7 +55,9 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="w-full max-w-md bg-white shadow-xl rounded-lg p-8">
-        <h1 className="text-3xl font-bold text-center text-[#2c5364] mb-6">Welcome Back</h1>
+        <h1 className="text-3xl font-bold text-center text-[#2c5364] mb-6">
+          Welcome Back
+        </h1>
 
         {error && (
           <p className="mb-4 text-sm text-red-600 text-center">{error}</p>
