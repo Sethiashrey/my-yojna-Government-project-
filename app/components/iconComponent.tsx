@@ -1,6 +1,6 @@
 import {iconMap} from '../constants';
 
-interface IconComponentProps {
+export interface IconComponentProps {
   name: keyof typeof iconMap;
   className?: string;
 }

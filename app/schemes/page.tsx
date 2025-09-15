@@ -1,46 +1,51 @@
-import SchemeCard from "../components/schemeCard";
-import TagsDropdown from "../components/tagsDropdown";
+"use client";
 
-export default async function SchemePage() {
-  const level = ["Central", "State", "Both"];
-  const states = [
-    "Andhra Pradesh",
-    "Arunachal Pradesh",
-    "Assam",
-    "Bihar",
-    "Chhattisgarh",
-    "Goa",
-    "Gujarat",
-    "Haryana",
-    "Himachal Pradesh",
-    "Jharkhand",
-    "Karnataka",
-    "Kerala",
-    "Madhya Pradesh",
-    "Maharashtra",
-    "Manipur",
-    "Meghalaya",
-    "Mizoram",
-    "Nagaland",
-    "Odisha",
-    "Punjab",
-    "Rajasthan",
-    "Sikkim",
-    "Tamil Nadu",
-    "Telangana",
-    "Tripura",
-    "Uttar Pradesh",
-    "Uttarakhand",
-    "West Bengal",
-    "Andaman & Nicobar Islands",
-    "Chandigarh",
-    "Dadra & Nagar Haveli and Daman & Diu",
-    "Delhi",
-    "Jammu & Kashmir",
-    "Ladakh",
-    "Lakshadweep",
-    "Puducherry",
-  ];
+import { useState } from "react";
+import TagsDropdown from "../components/tagsDropdown";
+import { levels, states } from "../constants/index";
+import SchemeProps from "@/lib/types";
+import { WithIntersectionObserver } from "../components/WithIntersectionObserver";
+
+export default function SchemePage() {
+  const [loading, setLoading] = useState(false);
+
+  const [selectedTag, setSelectedTag] = useState("");
+  const [state, setState] = useState("");
+  const [level, setLevel] = useState("");
+  const [schemes, setSchemes] = useState<SchemeProps[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+
+  const fetchSchemes = async (page: number) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${
+          process.env.NEXT_PUBLIC_URL
+        }/api/schemes?level=${level}&state=${state}&tag=${selectedTag}&limit=10&skip=${
+          (page - 1) * 10
+        }`
+      );
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSchemes((prev) => [...prev, ...data.schemes]);
+        setHasMore(data.pagination.hasMore);
+      }
+    } catch (error) {
+      console.error("Error fetching schemes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFilterApply = () => {
+    setPage(1);
+    setSchemes([]);
+    setHasMore(true);
+    fetchSchemes(1);
+  };
+
   return (
     <div className="min-h-screen bg-[#0f2027]/5 ">
       {/* Hero Section */}
@@ -79,10 +84,11 @@ export default async function SchemePage() {
           </p>
         </div>
       </div>
-
       {/* How It Works Section */}
       <div className="max-w-7xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center text-[#203a43] mb-10">How It Works</h2>
+        <h2 className="text-3xl font-bold text-center text-[#203a43] mb-10">
+          How It Works
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
@@ -108,27 +114,37 @@ export default async function SchemePage() {
               <div className="w-16 h-16 bg-[#2c5364]/10 text-[#2c5364] rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
                 {item.step}
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-[#203a43]">{item.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-[#203a43]">
+                {item.title}
+              </h3>
               <p className="text-gray-600">{item.desc}</p>
             </div>
           ))}
         </div>
       </div>
-
       {/* Filters Section */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-semibold mb-4 text-[#203a43]">Filter Schemes</h2>
+          <h2 className="text-xl font-semibold mb-4 text-[#203a43]">
+            Filter Schemes
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Level */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Level
               </label>
-              <select className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9">
-                <option value="">All Levels</option>
-                {level.map((lvl) => (
-                  <option key={lvl}>{lvl}</option>
+              <select
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+                className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9"
+              >
+                <option value="All">All Levels</option>
+                {levels.map((lvl) => (
+                  <option key={lvl} value={lvl}>
+                    {lvl}
+                  </option>
                 ))}
               </select>
             </div>
@@ -138,10 +154,16 @@ export default async function SchemePage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 State
               </label>
-              <select className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9">
-                <option value="">All States</option>
-                {states.map((state) => (
-                  <option key={state}>{state}</option>
+              <select
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className="w-full border-gray-300 rounded-md shadow-sm focus:border-[#2c5364] focus:ring focus:ring-[#2c5364]/20 h-9"
+              >
+                <option value="All">All States</option>
+                {states.map((stateOption) => (
+                  <option key={stateOption} value={stateOption}>
+                    {stateOption}
+                  </option>
                 ))}
               </select>
             </div>
@@ -151,17 +173,29 @@ export default async function SchemePage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Tags
               </label>
-              <TagsDropdown />
+              <TagsDropdown
+                selectedTag={selectedTag}
+                onChange={(value) => setSelectedTag(value)}
+              />
             </div>
           </div>
 
           <div className="mt-6 flex justify-end">
-            <button className="bg-gradient-to-r from-[#2c5364] to-[#203a43] text-white px-5 py-2 rounded-md hover:from-[#2c5364] hover:to-[#0f2027] transition-all duration-300 shadow-md">
+            <button
+              className="bg-gradient-to-r from-[#2c5364] to-[#203a43] text-white px-5 py-2 rounded-md hover:from-[#2c5364] hover:to-[#0f2027] transition-all duration-300 shadow-md"
+              onClick={handleFilterApply}
+            >
               Apply Filters
             </button>
           </div>
         </div>
       </div>
+      <WithIntersectionObserver
+        hasMore={hasMore}
+        schemes={schemes}
+        fetchSchemes={fetchSchemes}
+        loading={loading}
+      />
     </div>
   );
 }

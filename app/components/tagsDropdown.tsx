@@ -10,29 +10,41 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronDown } from "lucide-react"; // Add ChevronDown import
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { TagsDropdownProps } from "@/lib/types";
 
-export default function TagsDropdown() {
+export default function TagsDropdown({
+  selectedTag = "",
+  onChange,
+}: TagsDropdownProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState<string>("");
+  const selected = selectedTag;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button 
-          variant="outline" 
-          role="combobox" 
+        <Button
+          variant="outline"
+          role="combobox"
           className="w-64 justify-between"
           aria-expanded={open}
         >
-          {selected ? tags.find((t) => t.value === selected)?.label : "Select a tag"}
-          <ChevronDown className={cn(
-            "ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform",
-            open && "rotate-180" 
-          )} />
+          {selected
+            ? tags.find((t) => t.value === selected)?.label
+            : "Select a tag"}
+          <ChevronDown
+            className={cn(
+              "ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform",
+              open && "rotate-180"
+            )}
+          />
         </Button>
       </PopoverTrigger>
 
@@ -47,7 +59,9 @@ export default function TagsDropdown() {
                   key={tag.value}
                   value={tag.value}
                   onSelect={(currentValue) => {
-                    setSelected(currentValue === selected ? "" : currentValue);
+                    if (onChange) {
+                      onChange(currentValue === selected ? "" : currentValue);
+                    }
                     setOpen(false);
                   }}
                 >

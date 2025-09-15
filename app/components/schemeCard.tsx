@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import SchemeProps from "../../lib/types";
 
 export default function SchemeCard({
@@ -31,7 +31,6 @@ export default function SchemeCard({
       day: "numeric",
     });
   };
-
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all group">
@@ -166,7 +165,6 @@ export default function SchemeCard({
               ></path>
             </svg>
           </a>
-
         </div>
       </div>
     </div>

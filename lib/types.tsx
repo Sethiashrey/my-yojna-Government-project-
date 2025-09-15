@@ -1,11 +1,8 @@
-
-
 interface ContentNode {
   text?: string;
   type?: string;
   children?: ContentNode[];
 }
-
 
 interface BenefitChild {
   text: string;
@@ -16,7 +13,7 @@ interface Benefit {
 }
 
 interface ApplicationProcessStep {
-  children?:ContentNode[];
+  children?: ContentNode[];
 }
 
 interface ApplicationProcess {
@@ -37,7 +34,6 @@ interface Document {
   children?: DocumentChild[];
 }
 
-
 export default interface SchemeProps {
   _id?: string;
   schemeName: string;
@@ -47,7 +43,7 @@ export default interface SchemeProps {
   tags?: string[];
   category?: string[];
   detailedDescription_md?: string;
-  eligibilityDescription_md?:string;
+  eligibilityDescription_md?: string;
   benefits?: Benefit[];
   applicationProcess?: ApplicationProcess[];
   references?: Array<{
@@ -64,4 +60,9 @@ export default interface SchemeProps {
   openDate?: string | null;
   closeDate?: string | null;
   nodalMinistryName?: string | null;
+}
+
+export interface TagsDropdownProps {
+  selectedTag?: string;
+  onChange?: (value: string) => void;
 }

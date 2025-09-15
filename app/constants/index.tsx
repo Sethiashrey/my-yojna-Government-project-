@@ -35,7 +35,7 @@ export const languages = [
 ];
 
 export const stats = [
-  { number: '1000+', label: 'Government Schemes' },
+  { number: '500+', label: 'Government Schemes' },
   { number: '28+', label: 'States Covered' },
   { number: '12+', label: 'Languages Available' },
 ];
@@ -134,3 +134,44 @@ export const features = [
     icon: '✨',
   },
 ];
+
+export const levels = ["Central", "State"];
+
+export const states = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Andaman & Nicobar Islands",
+    "Chandigarh",
+    "Dadra & Nagar Haveli and Daman & Diu",
+    "Delhi",
+    "Jammu & Kashmir",
+    "Ladakh",
+    "Lakshadweep",
+    "Puducherry",
+  ];

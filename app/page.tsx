@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,10 +12,9 @@ import {
 import IconComponent from "./components/iconComponent";
 
 export default function Home() {
-  const user=sessionStorage.getItem("userDisplayInfo");
+  const user = sessionStorage.getItem("userDisplayInfo");
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      
       {/* Hero Section */}
       <div className="relative min-h-[600px]">
         <Image
@@ -38,18 +37,20 @@ export default function Home() {
                 better opportunities today.
               </p>
               <div className="flex gap-6">
-                              <Link
+                <Link
                   href="/schemes"
                   className="bg-white/90 backdrop-blur-sm text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-white transition-colors shadow-lg inline-flex items-center gap-2"
                 >
                   Explore Schemes
                 </Link>
-                {user && <Link
-                  href="/register"
-                  className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-colors shadow-lg"
-                >
-                  Create Profile
-                </Link>}
+                {user && (
+                  <Link
+                    href="/register"
+                    className="bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-colors shadow-lg"
+                  >
+                    Create Profile
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -66,10 +67,10 @@ export default function Home() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category) => (
-                          <div
-                key={category.id}
-                className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-r from-[#2c5364] via-[#203a43] to-[#0f2027] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
-              >
+            <div
+              key={category.id}
+              className="group bg-white p-8 rounded-2xl hover:bg-gradient-to-r from-[#2c5364] via-[#203a43] to-[#0f2027] transition-all duration-300 border border-gray-100 hover:border-transparent shadow-sm hover:shadow-md"
+            >
               <div className="text-4xl mb-6 group-hover:scale-110 transition-transform duration-300">
                 <IconComponent name={category.icon} className="w-12 h-12" />
               </div>
